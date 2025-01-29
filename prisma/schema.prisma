@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Game {
+  id        Int        @id @default(autoincrement())
+  name      String
+  code      String     @unique
+  players   Player[]
+  questions Question[]
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+
+  @@map("games")
+}
+
+model Question {
+  id        Int      @id @default(autoincrement())
+  text      String
+  gameId    Int?      @map("game_id")
+  game      Game?     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  options   Option[]
+  answers   Answer[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("questions")
+}
+
+model Option {
+  id         Int      @id @default(autoincrement())
+  text       String
+  isCorrect  Boolean  @map("is_correct")
+  questionId Int      @map("question_id")
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  answers    Answer[]
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("options")
+}
+
+model Player {
+  id        Int      @id @default(autoincrement())
+  name      String
+  score     Int?     @db.UnsignedInt
+  gameId    Int      @map("game_id")
+  game      Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  answers   Answer[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("players")
+}
+
+model Answer {
+  id         Int      @id @default(autoincrement())
+  playerId   Int      @map("player_id")
+  player     Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  questionId Int      @map("question_id")
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  optionId   Int      @map("option_id")
+  option     Option   @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("answers")
+}

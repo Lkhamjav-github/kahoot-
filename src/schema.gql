@@ -1,0 +1,280 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Answer {
+  createdAt: DateTime!
+  id: Int!
+  option: Option!
+  optionId: Int!
+  player: Player!
+  playerId: Int!
+  question: Question!
+  questionId: Int!
+  updatedAt: DateTime!
+}
+
+input AnswerCreateInput {
+  optionId: Int!
+  playerId: Int!
+  questionId: Int!
+}
+
+type AnswerPagination {
+  count: Int!
+  nodes: [Answer!]!
+}
+
+input AnswerUpdateInput {
+  name: String
+  optionId: Int
+  playerId: Int
+  questionId: Int
+  score: Float
+}
+
+input AnswerWhereInput {
+  AND: [AnswerWhereInput!]
+  NOT: [AnswerWhereInput!]
+  OR: [AnswerWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  score: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input AnswerWhereUniqueInput {
+  id: Float
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DateTimeFilter {
+  equals: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  lt: DateTime
+  lte: DateTime
+  not: DateTimeFilter
+  notIn: [DateTime!]
+}
+
+type Game {
+  code: String!
+  createdAt: DateTime!
+  id: Int!
+  name: String!
+  updatedAt: DateTime!
+}
+
+input GameCreateInput {
+  code: String!
+  id: Int
+  name: String
+}
+
+type GamePagination {
+  count: Int!
+  nodes: [Game!]!
+}
+
+input GameUpdateInput {
+  code: String
+  id: Int
+  name: String
+  score: Float
+}
+
+input GameWhereInput {
+  AND: [GameWhereInput!]
+  NOT: [GameWhereInput!]
+  OR: [GameWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  score: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input GameWhereUniqueInput {
+  id: Float
+}
+
+type Mutation {
+  createAnswer(data: AnswerCreateInput!): Answer!
+  createGame(data: GameCreateInput!): Game!
+  createOption(data: OptionCreateInput!): Option!
+  createPlayer(data: PlayerCreateInput!): Player!
+  createQuestion(data: QuestionCreateInput!): Question!
+  delete(where: OptionWhereUniqueInput!): Option!
+  deleteAnswer(where: AnswerWhereUniqueInput!): Answer!
+  deletePlayer(where: PlayerWhereUniqueInput!): Player!
+  deleteQuestion(where: QuestionWhereUniqueInput!): Question!
+  update(data: GameUpdateInput!, where: GameWhereUniqueInput!): Game!
+  updateAnswer(data: AnswerUpdateInput!, where: AnswerWhereUniqueInput!): Answer!
+  updateGame(data: OptionUpdateInput!, where: OptionWhereUniqueInput!): Option!
+  updatePlayer(data: PlayerUpdateInput!, where: PlayerWhereUniqueInput!): Player!
+  updateQuestion(data: QuestionUpdateInput!, where: QuestionWhereUniqueInput!): Question!
+}
+
+type Option {
+  answers: [Answer!]!
+  createdAt: DateTime!
+  id: Int!
+  isCorrect: Boolean!
+  question: Question!
+  questionId: Int!
+  text: String!
+  updatedAt: DateTime!
+}
+
+input OptionCreateInput {
+  isCorrect: Boolean!
+  questionId: Int!
+  text: String
+}
+
+input OptionUpdateInput {
+  isCorrect: Boolean
+  name: String
+  questionId: Int
+  score: Float
+  text: String
+}
+
+input OptionWhereInput {
+  AND: [OptionWhereInput!]
+  NOT: [OptionWhereInput!]
+  OR: [OptionWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  score: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input OptionWhereUniqueInput {
+  id: Float
+}
+
+type Player {
+  answers: [Answer!]
+  createdAt: DateTime!
+  gameId: Float!
+  id: ID!
+  name: String!
+  score: Float!
+  updatedAt: DateTime!
+}
+
+input PlayerCreateInput {
+  gameId: Int!
+  name: String
+  score: Float
+}
+
+type PlayerPagination {
+  count: Int!
+  nodes: [Player!]!
+}
+
+input PlayerUpdateInput {
+  gameId: Int
+  name: String
+  score: Float
+}
+
+input PlayerWhereInput {
+  AND: [PlayerWhereInput!]
+  NOT: [PlayerWhereInput!]
+  OR: [PlayerWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  score: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input PlayerWhereUniqueInput {
+  id: Float
+}
+
+type Query {
+  answer(where: AnswerWhereUniqueInput!): Answer!
+  answers(skip: Int, take: Int, where: AnswerWhereInput): AnswerPagination!
+  game(where: GameWhereUniqueInput!): Game!
+  games(skip: Int, take: Int, where: GameWhereInput): GamePagination!
+  option(where: OptionWhereUniqueInput!): Option!
+  options(skip: Int, take: Int, where: OptionWhereInput): [Option!]!
+  player(where: PlayerWhereUniqueInput!): Player!
+  players(skip: Int, take: Int, where: PlayerWhereInput): PlayerPagination!
+  question(where: QuestionWhereUniqueInput!): Question!
+  questions(skip: Int, take: Int, where: QuestionWhereInput): QuestionPagination!
+}
+
+type Question {
+  answers: [Answer!]!
+  createdAt: DateTime!
+  gameId: Int
+  id: Int!
+  options: [Option!]!
+  text: String!
+  updatedAt: DateTime!
+}
+
+input QuestionCreateInput {
+  createdAt: DateTime!
+  gameId: Int!
+  id: Int
+  text: String
+  updatedAt: DateTime!
+}
+
+type QuestionPagination {
+  count: Int!
+  nodes: [Question!]!
+}
+
+input QuestionUpdateInput {
+  createdAt: DateTime
+  gameId: Int
+  id: Int
+  name: String
+  score: Float
+  text: String
+  updatedAt: DateTime
+}
+
+input QuestionWhereInput {
+  AND: [QuestionWhereInput!]
+  NOT: [QuestionWhereInput!]
+  OR: [QuestionWhereInput!]
+  createdAt: DateTimeFilter
+  id: StringFilter
+  name: StringFilter
+  score: StringFilter
+  updatedAt: DateTimeFilter
+}
+
+input QuestionWhereUniqueInput {
+  id: Float
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: StringFilter
+  notIn: [String!]
+  startsWith: String
+}
